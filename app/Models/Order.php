@@ -10,24 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Order extends Model
 {
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_id',
-        'customer_id',
-        'order_number',
-        'order_name',
-        'discount',
-        'total',
-        'profit',
-        'payment_method',
-        'status',
-    ];
-
+    
     /**
      * The attributes that should be cast to native types.
      *
