@@ -10,16 +10,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Order extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'user_id' => 'integer',
-        'customer_id' => 'integer',
+        'status' => \App\OrderStatus::class,
+        'payment_method' => \App\PaymentMethod::class,
     ];
 
     public function orderDetails(): HasMany
