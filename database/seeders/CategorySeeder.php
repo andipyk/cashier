@@ -1,0 +1,30 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class CategorySeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        collect([
+            'Makanan',
+            'Minuman',
+            'Peralatan Masak',
+            'Kopi',
+            'Teh',
+            'Cemilan',
+            'Permen',
+            'Roti',
+            'Kue',
+            'Sarapan',
+        ])->each(fn ($category)=> \App\Models\Category::query()->create([
+            'name'=> $category
+        ]));
+    }
+}
