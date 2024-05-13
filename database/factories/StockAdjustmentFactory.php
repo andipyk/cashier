@@ -21,10 +21,24 @@ class StockAdjustmentFactory extends Factory
      */
     public function definition(): array
     {
+        $productID = Product::query()->inRandomOrder()->value('id');
+        $quanity_adjusted = $this->faker->numberBetween(-50, 50);
+
         return [
-            'product_id' => Product::factory(),
-            'quantity_adjusted' => $this->faker->numberBetween(-10000, 10000),
-            'reason' => $this->faker->text(),
+            'product_id' => $productID,
+            'quantity_adjusted' => $quanity_adjusted,
+            'reason' => $this->faker->sentence(),
         ];
+    }
+
+    public function configure(): StockAdjustmentFactory
+    {
+        return $this->afterCreating(
+            function (StockAdjustment $stockAdjustment) {
+                $product = $stockAdjustment->product;
+                $product->stock_quantity += $stockAdjustment->quantity_adjusted;
+                $product->save();
+            }
+        );
     }
 }

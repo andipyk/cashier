@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use \App\Models\Customer as CustomerModel;
+use \App\Models\Product as ProductModel;
+use \App\Models\StockAdjustment as StockAdjustmentModel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            UserSeeder::class,
+            CategorySeeder::class,
         ]);
+
+        CustomerModel::factory(50)->create();
+        ProductModel::factory(50)->create();
+        StockAdjustmentModel::factory(50)->create();
+
     }
 }
