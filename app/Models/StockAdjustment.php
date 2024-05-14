@@ -2,22 +2,16 @@
 
 namespace App\Models;
 
+use App\Observers\StockAdjustmentObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy(StockAdjustmentObserver::class)]
 class StockAdjustment extends Model
 {
     use HasFactory;
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'product_id' => 'integer',
-    ];
 
     public function product(): BelongsTo
     {
