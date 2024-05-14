@@ -20,14 +20,6 @@ class StockAdjustmentObserver
     }
 
     /**
-     * Handle the StockAdjustment "updated" event.
-     */
-    public function updated(StockAdjustment $stockAdjustment): void
-    {
-        //
-    }
-
-    /**
      * Handle the StockAdjustment "deleted" event.
      */
     public function deleted(StockAdjustment $stockAdjustment): void
@@ -39,19 +31,4 @@ class StockAdjustmentObserver
          });
     }
 
-    /**
-     * Handle the StockAdjustment "restored" event.
-     */
-    public function restored(StockAdjustment $stockAdjustment): void
-    {
-        //
-    }
-
-    /**
-     * Handle the StockAdjustment "force deleted" event.
-     */
-    public function forceDeleted(StockAdjustment $stockAdjustment): void
-    {
-        //
-    }
 }

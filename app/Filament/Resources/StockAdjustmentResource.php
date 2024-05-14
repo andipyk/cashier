@@ -25,12 +25,17 @@ class StockAdjustmentResource extends Resource
             ->schema([
                 Forms\Components\Select::make('product_id')
                     ->relationship('product', 'name')
+                    ->searchable()
+                    ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('quantity_adjusted')
                     ->required()
                     ->numeric(),
                 Forms\Components\Textarea::make('reason')
                     ->required()
+                    ->default('Restock.')
+                    ->maxLength(65535)
+                    ->placeholder('Write a reason for the stock adjustment')
                     ->columnSpanFull(),
             ]);
     }
@@ -38,13 +43,20 @@ class StockAdjustmentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('product.name')
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
-                    ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity_adjusted')
+                    ->label('Adjustment')
                     ->numeric()
+                    ->suffix(' Quantity')
+                    ->color('gray')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('reason')
+                    ->label('Reason')
+                    ->placeholder('-')
+                    ->limit(50),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -55,11 +67,17 @@ class StockAdjustmentResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('product_id')
+                    ->label('Product')
+                    ->relationship('product', 'name')
+                    ->searchable()
+                    ->preload()
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
