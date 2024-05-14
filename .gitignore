@@ -17,3 +17,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
+.env.vault
